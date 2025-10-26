@@ -1,0 +1,15 @@
+{
+  "name": "cf-autorag-hawkeye",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev src/worker.ts",
+    "deploy": "wrangler deploy src/worker.ts",
+    "seed": "wrangler d1 execute --local false --file ./scripts/seed.ts"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0"
+  },
+  "dependencies": {}
+}
