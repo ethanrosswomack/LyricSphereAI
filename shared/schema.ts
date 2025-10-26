@@ -1,43 +1,47 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
+import { pgTable, text, integer, json, timestamp, real, vector } from 'drizzle-orm/pg-core';
+import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+// Lyrics documents table
+export const documents = pgTable('documents', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  title: text('title').notNull(),
+  content: text('content').notNull(),
+  metadata: json('metadata').$type<{
+    track?: string;
+    album?: string;
+    url?: string;
+    category?: string;
+  }>(),
+  embedding: vector('embedding', { dimensions: 384 }), // Using smaller dimensions for simplicity
+  createdAt: timestamp('created_at').defaultNow()
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+// Chat messages table for history
+export const messages = pgTable('messages', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  role: text('role').notNull().$type<'user' | 'assistant'>(),
+  content: text('content').notNull(),
+  citations: json('citations').$type<Array<{
+    id: number;
+    title: string;
+    score: number;
+  }>>(),
+  createdAt: timestamp('created_at').defaultNow()
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+// Schemas for validation
+export const insertDocumentSchema = createInsertSchema(documents).omit({ 
+  id: true, 
+  createdAt: true 
+});
+export const insertMessageSchema = createInsertSchema(messages).omit({ 
+  id: true, 
+  createdAt: true 
+});
 
-export type Message = {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-  citations?: Citation[];
-};
-
-export type Citation = {
-  key: string;
-  title: string;
-  url?: string;
-  score?: number;
-};
-
-export type ChatRequest = {
-  query: string;
-};
-
-export type ChatResponse = {
-  answer: string;
-  citations?: Citation[];
-  error?: string;
-};
+// Types
+export type Document = typeof documents.$inferSelect;
+export type InsertDocument = z.infer<typeof insertDocumentSchema>;
+export type Message = typeof messages.$inferSelect;
+export type InsertMessage = z.infer<typeof insertMessageSchema>;

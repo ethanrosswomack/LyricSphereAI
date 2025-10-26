@@ -3,9 +3,8 @@ import { ChatContainer } from "@/components/ChatContainer";
 import { ChatInput } from "@/components/ChatInput";
 import { SuggestedQuestions } from "@/components/SuggestedQuestions";
 import { WelcomeHero } from "@/components/WelcomeHero";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Message } from "@shared/schema";
-import { Music2 } from "lucide-react";
+import { Music2, Sun, Moon } from "lucide-react";
 
 const SUGGESTED_QUESTIONS = [
   "What is Warning Shots about?",
@@ -24,6 +23,7 @@ export default function ChatPage() {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   const handleSendMessage = async (content: string) => {
     const userMessage: Message = {
@@ -37,7 +37,6 @@ export default function ChatPage() {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with actual Cloudflare Worker endpoint
       const workerEndpoint = '/api/chat';
       
       const response = await fetch(workerEndpoint, {
@@ -62,7 +61,7 @@ export default function ChatPage() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Sorry, there was an error connecting to the service. Please make sure your Cloudflare Worker endpoint is configured.',
+        content: 'Sorry, there was an error connecting to the service. Please try again.',
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -73,6 +72,13 @@ export default function ChatPage() {
 
   const handleQuestionClick = (question: string) => {
     handleSendMessage(question);
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(newTheme);
   };
 
   const showWelcome = messages.length === 1;
@@ -86,7 +92,17 @@ export default function ChatPage() {
             Hawk Eye
           </h1>
         </div>
-        <ThemeToggle />
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg hover:bg-accent transition-colors"
+          data-testid="button-theme-toggle"
+        >
+          {theme === 'light' ? (
+            <Moon className="h-5 w-5" />
+          ) : (
+            <Sun className="h-5 w-5" />
+          )}
+        </button>
       </header>
 
       <main className="flex-1 flex flex-col overflow-hidden max-w-4xl w-full mx-auto">
