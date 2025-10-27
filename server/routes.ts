@@ -19,7 +19,7 @@ export function registerRoutes(app: Router) {
       }
 
       // Search for relevant documents
-      const documents = await storage.searchDocuments(query, undefined, 6);
+      const documents = await storage.searchDocuments(query, 6);
       
       // Build context from documents
       const context = documents
