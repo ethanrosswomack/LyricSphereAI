@@ -1,4 +1,4 @@
-import { pgTable, text, integer, json, timestamp, real, vector } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, json, timestamp, real } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
@@ -13,7 +13,6 @@ export const documents = pgTable('documents', {
     url?: string;
     category?: string;
   }>(),
-  embedding: vector('embedding', { dimensions: 384 }), // Using smaller dimensions for simplicity
   createdAt: timestamp('created_at').defaultNow()
 });
 
