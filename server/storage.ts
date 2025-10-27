@@ -1,13 +1,13 @@
 import { db } from './db';
 import { documents, messages, Document, Message, InsertDocument, InsertMessage } from '@shared/schema';
-import { eq, sql, desc, cosineDistance } from 'drizzle-orm';
+import { eq, sql, desc, or, ilike } from 'drizzle-orm';
 
 export interface IStorage {
   // Document operations
   createDocument(data: InsertDocument): Promise<Document>;
   getAllDocuments(): Promise<Document[]>;
   getDocumentById(id: number): Promise<Document | null>;
-  searchDocuments(query: string, embedding?: number[], limit?: number): Promise<Document[]>;
+  searchDocuments(query: string, limit?: number): Promise<Document[]>;
   
   // Message operations
   createMessage(data: InsertMessage): Promise<Message>;
@@ -30,22 +30,38 @@ class DatabaseStorage implements IStorage {
     return doc || null;
   }
 
-  async searchDocuments(query: string, embedding?: number[], limit = 6): Promise<Document[]> {
-    // If we have an embedding, do vector similarity search
-    if (embedding && embedding.length > 0) {
-      return await db
-        .select()
-        .from(documents)
-        .orderBy(cosineDistance(documents.embedding, embedding))
-        .limit(limit);
+  async searchDocuments(query: string, limit = 6): Promise<Document[]> {
+    try {
+      // Get all documents from the database
+      const allDocs = await db.select().from(documents);
+      console.log('Total documents in database:', allDocs.length);
+      
+      if (allDocs.length === 0) {
+        console.log('No documents found in database - need to seed data');
+        return [];
+      }
+      
+      // Filter documents that match the query
+      const queryLower = query.toLowerCase();
+      const filtered = allDocs.filter(doc => 
+        doc.title.toLowerCase().includes(queryLower) ||
+        doc.content.toLowerCase().includes(queryLower)
+      );
+      
+      console.log(`Found ${filtered.length} documents matching query: "${query}"`);
+      
+      // Sort by createdAt (most recent first) and limit results
+      const sorted = filtered.sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA;
+      });
+      
+      return sorted.slice(0, limit);
+    } catch (error) {
+      console.error('Search error:', error);
+      return [];
     }
-    
-    // Otherwise do text search
-    return await db
-      .select()
-      .from(documents)
-      .where(sql`to_tsvector('english', ${documents.content}) @@ plainto_tsquery('english', ${query})`)
-      .limit(limit);
   }
 
   async createMessage(data: InsertMessage): Promise<Message> {
@@ -88,7 +104,7 @@ class MemoryStorage implements IStorage {
     return this.documentsStore.find(d => d.id === id) || null;
   }
 
-  async searchDocuments(query: string, embedding?: number[], limit = 6): Promise<Document[]> {
+  async searchDocuments(query: string, limit = 6): Promise<Document[]> {
     // Simple text search for memory storage
     const queryLower = query.toLowerCase();
     const results = this.documentsStore
@@ -122,7 +138,5 @@ class MemoryStorage implements IStorage {
   }
 }
 
-// Use memory storage by default, switch to database when configured
-export const storage: IStorage = process.env.USE_DATABASE === 'true' 
-  ? new DatabaseStorage() 
-  : new MemoryStorage();
+// Use database storage by default
+export const storage: IStorage = new DatabaseStorage();

@@ -1,35 +1,20 @@
-// Mock database for development
-// In production, this would connect to a real database
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-serverless';
+import ws from "ws";
+import * as schema from "@shared/schema";
 
-// Export a mock database instance
-export const db = {
-  select: () => ({
-    from: () => ({
-      where: () => Promise.resolve([]),
-      orderBy: () => ({
-        limit: () => Promise.resolve([])
-      }),
-      limit: () => Promise.resolve([])
-    })
-  }),
-  insert: () => ({
-    values: () => ({
-      returning: () => Promise.resolve([{
-        id: Math.floor(Math.random() * 1000),
-        createdAt: new Date()
-      }])
-    })
-  }),
-  delete: () => ({
-    where: () => Promise.resolve()
-  }),
-  update: () => ({
-    set: () => ({
-      where: () => ({
-        returning: () => Promise.resolve([])
-      })
-    })
-  })
-};
+// Configure websocket support for Neon database connection
+neonConfig.webSocketConstructor = ws;
+
+// Ensure DATABASE_URL environment variable is set
+if (!process.env.DATABASE_URL) {
+  throw new Error(
+    "DATABASE_URL must be set. Did you forget to provision a database?",
+  );
+}
+
+// Create connection pool and database instance with schema
+export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+export const db = drizzle({ client: pool, schema });
 
 export default db;
