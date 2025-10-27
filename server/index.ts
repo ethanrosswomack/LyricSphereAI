@@ -38,9 +38,17 @@ const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
-    const message = data.toString();
-    console.log('WebSocket message received:', message);
-    ws.send(JSON.stringify({ echo: message }));
+    try {
+      const message = data.toString();
+      console.log('WebSocket message received:', message);
+      ws.send(JSON.stringify({ echo: message }));
+    } catch (err) {
+      console.error('WebSocket message error:', err);
+    }
+  });
+  
+  ws.on('error', (err) => {
+    console.error('WebSocket error:', err);
   });
 });
 
