@@ -1,6 +1,5 @@
 import express from 'express';
 import { createServer } from 'http';
-import { WebSocketServer } from 'ws';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { setupVite } from './vite';
@@ -32,25 +31,6 @@ if (isDev) {
     res.sendFile(path.join(staticPath, 'index.html'));
   });
 }
-
-// WebSocket setup
-const wss = new WebSocketServer({ server });
-
-wss.on('connection', (ws) => {
-  ws.on('message', (data) => {
-    try {
-      const message = data.toString();
-      console.log('WebSocket message received:', message);
-      ws.send(JSON.stringify({ echo: message }));
-    } catch (err) {
-      console.error('WebSocket message error:', err);
-    }
-  });
-  
-  ws.on('error', (err) => {
-    console.error('WebSocket error:', err);
-  });
-});
 
 // Start server
 const PORT = process.env.PORT || 5000;
