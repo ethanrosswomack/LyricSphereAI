@@ -1,17 +1,7 @@
 import { storage } from '../server/storage';
-import { fetchFromR2 } from './r2-fetch';
 
-// Cloudflare R2 configuration
-const R2_ACCOUNT_ID = '74b94b7ffc15701b77e53f81bea03813';
-const R2_BUCKET_NAME = 'omniversal-s3';
-const R2_ENDPOINT = `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`;
-
-const r2Config = {
-  accountId: R2_ACCOUNT_ID,
-  accessKeyId: process.env.CLOUDFLARE_ACCESS_ID || '',
-  secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY || '',
-  bucketName: R2_BUCKET_NAME,
-};
+// Cloudflare R2 Public URL configuration
+const R2_PUBLIC_URL = 'https://pub-c5a0232bd1bb4662939e8ae45342ba65.r2.dev';
 
 // Track information from "The Mixtape Sessions - Full Disclosure"
 interface TrackInfo {
@@ -32,7 +22,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Swordfish',
     fileName: '01_swordfish.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/01_swordfish.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/01_swordfish.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/01_swordfish.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -41,7 +31,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Mic Check',
     fileName: '02_mic_check.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/02_mic_check.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/02_mic_check.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/02_mic_check.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -50,7 +40,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Shakur',
     fileName: '03_shakur.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/03_shakur.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/03_shakur.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/03_shakur.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -59,7 +49,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Last One Left',
     fileName: '04_last_one_left.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/04_last_one_left.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/04_last_one_left.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/04_last_one_left.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -68,7 +58,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Full Disclosure',
     fileName: '05_full_disclosure.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/05_full_disclosure.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/05_full_disclosure.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/05_full_disclosure.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -77,7 +67,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Lifted',
     fileName: '06_lifted.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/06_lifted.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/06_lifted.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/06_lifted.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -86,7 +76,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Fuck Society',
     fileName: '07_fuck_society.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/07_fuck_society.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/07_fuck_society.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/07_fuck_society.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -95,7 +85,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Ashes',
     fileName: '08_ashes.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/08_ashes.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/08_ashes.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/08_ashes.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -104,7 +94,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Haunted',
     fileName: '09_haunted.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/09_haunted.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/09_haunted.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/09_haunted.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -113,7 +103,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Monumental',
     fileName: '10_monumental.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/10_monumental.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/10_monumental.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/10_monumental.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -122,7 +112,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Trafficked',
     fileName: '11_trafficked_web.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/11_trafficked_web.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/11_trafficked_web.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/11_trafficked_web.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -131,7 +121,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Hocus Pocus',
     fileName: '12_hocus_pocus.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/12_hocus_pocus.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/12_hocus_pocus.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/12_hocus_pocus.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -140,7 +130,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Syntax',
     fileName: '13_syntax.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/13_syntax.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/13_syntax.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/13_syntax.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -149,7 +139,7 @@ const tracks: TrackInfo[] = [
     trackTitle: 'Stay Real',
     fileName: '14_stay_real.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/14_stay_real.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/14_stay_real.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/14_stay_real.md`
   },
   {
     project: 'The Mixtape Sessions',
@@ -158,14 +148,21 @@ const tracks: TrackInfo[] = [
     trackTitle: 'The Story of Our Former Glory',
     fileName: '15_the_story_of_our_former_glory.md',
     s3Key: 'src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/15_the_story_of_our_former_glory.md',
-    url: `${R2_ENDPOINT}/${R2_BUCKET_NAME}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/15_the_story_of_our_former_glory.md`
+    url: `${R2_PUBLIC_URL}/src/data/HAWK-ARS-00/02_mixtape_sessions/01_full_disclosure/15_the_story_of_our_former_glory.md`
   }
 ];
 
-// Helper function to fetch content from R2 using custom authentication
+// Helper function to fetch content from public R2 URL
 async function fetchTrackContent(s3Key: string): Promise<string | null> {
   try {
-    const content = await fetchFromR2(r2Config, s3Key);
+    const url = `${R2_PUBLIC_URL}/${s3Key}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const content = await response.text();
     return content;
   } catch (error) {
     console.error(`   ❌ Failed to fetch: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -181,19 +178,11 @@ function delay(ms: number): Promise<void> {
 // Main seeding function
 async function seedRealLyrics() {
   console.log('🎵 === Seeding Real Lyrics from Cloudflare R2 ===\n');
-  console.log(`🔐 Using authenticated S3 access`);
-  console.log(`🪣 Bucket: ${R2_BUCKET_NAME}`);
-  console.log(`🌐 Endpoint: ${R2_ENDPOINT}`);
+  console.log(`🌐 Public URL: ${R2_PUBLIC_URL}`);
   console.log(`📦 Project: ${tracks[0].project}`);
   console.log(`💿 Album: ${tracks[0].album}`);
   console.log(`🎼 Total tracks: ${tracks.length}\n`);
   
-  // Verify credentials are available
-  if (!process.env.CLOUDFLARE_ACCESS_ID || !process.env.CLOUDFLARE_SECRET_ACCESS_KEY) {
-    console.error('❌ Missing Cloudflare R2 credentials!');
-    console.error('   Please ensure CLOUDFLARE_ACCESS_ID and CLOUDFLARE_SECRET_ACCESS_KEY are set');
-    process.exit(1);
-  }
   
   let successCount = 0;
   let failureCount = 0;
