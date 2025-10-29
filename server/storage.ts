@@ -118,6 +118,7 @@ export interface IStorage {
   getAllDocuments(): Promise<Document[]>;
   getDocumentById(id: number): Promise<Document | null>;
   searchDocuments(query: string, limit?: number): Promise<Document[]>;
+  clearDocuments(): Promise<void>;
   
   // Message operations
   createMessage(data: InsertMessage): Promise<Message>;
@@ -250,6 +251,10 @@ class DatabaseStorage implements IStorage {
 
   async clearMessages(): Promise<void> {
     await db.delete(messages);
+  }
+
+  async clearDocuments(): Promise<void> {
+    await db.delete(documents);
   }
 }
 
@@ -386,6 +391,10 @@ class MemoryStorage implements IStorage {
 
   async clearMessages(): Promise<void> {
     this.messagesStore = [];
+  }
+
+  async clearDocuments(): Promise<void> {
+    this.documentsStore = [];
   }
 }
 
