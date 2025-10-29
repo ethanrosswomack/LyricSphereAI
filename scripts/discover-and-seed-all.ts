@@ -3,9 +3,7 @@
  * Uses public listing endpoint to discover all tracks
  */
 
-import { db } from '../server/db';
-import { documents } from '../shared/schema';
-import { generateEmbedding } from '../server/embeddings';
+import { storage } from '../server/storage';
 
 const R2_PUBLIC_URL = 'https://pub-c5a0232bd1bb4662939e8ae45342ba65.r2.dev';
 
@@ -214,7 +212,7 @@ async function seedAllTracks() {
 
   // Step 2: Clear existing data
   console.log('🗑️  Clearing existing documents...');
-  await db.delete(documents);
+  await storage.clearDocuments();
   console.log('✅ Cleared\n');
 
   // Step 3: Seed tracks
@@ -238,22 +236,18 @@ async function seedAllTracks() {
       continue;
     }
 
-    // Generate embedding
-    const embedding = await generateEmbedding(content);
-
-    // Insert into database
+    // Insert into database (storage handles embedding generation)
     try {
-      await db.insert(documents).values({
+      await storage.createDocument({
         title: track.trackTitle,
-        content,
+        content: content.trim(),
         metadata: {
-          track: track.trackTitle,
-          album: track.album,
           project: track.project,
+          album: track.album,
           trackNumber: track.trackNumber,
+          trackTitle: track.trackTitle,
           url: track.url,
         },
-        embedding,
       });
 
       console.log(`   ✅ Inserted (${content.length} chars)`);
