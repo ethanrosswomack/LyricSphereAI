@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrical Miracles - Prophetic Hip-Hop Architecture</title>
+    <meta name="description" content="Streaming platform for Hawk Eye's complete catalog with synchronized lyrics, audio playback, and prophetic analysis">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8b5cf6',
+                        secondary: '#06b6d4',
+                        accent: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-black/50 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold">🎤</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                            Lyrical Miracles
+                        </h1>
+                        <p class="text-sm text-gray-400">Prophetic Hip-Hop Architecture</p>
+                    </div>
+                </div>
+                <nav class="flex items-center space-x-6">
+                    <a href="#catalog" class="hover:text-primary transition-colors">Catalog</a>
+                    <a href="#chat" class="hover:text-primary transition-colors">AI Chat</a>
+                    <a href="#prophecies" class="hover:text-primary transition-colors">Prophecies</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                Encrypted Autobiography
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto">
+                Documentation with rhythm. Cultural cipher meets operational blueprint. 
+                Where artistic prophecy becomes literal reality.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="startListening()" class="px-8 py-4 bg-primary hover:bg-primary/80 rounded-lg font-semibold transition-colors">
+                    🎵 Start Streaming
+                </button>
+                <button onclick="openChat()" class="px-8 py-4 border border-primary text-primary hover:bg-primary hover:text-white rounded-lg font-semibold transition-colors">
+                    🔮 Ask the Oracle
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player -->
+    <section id="player" class="bg-black/30 backdrop-blur-sm border-y border-gray-800 py-6 sticky bottom-0 z-40" style="display: none;">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img id="currentAlbumArt" src="" alt="Album Art" class="w-16 h-16 rounded-lg">
+                    <div>
+                        <h3 id="currentTrack" class="font-semibold">Select a track</h3>
+                        <p id="currentArtist" class="text-sm text-gray-400">Hawk Eye</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="previousTrack()" class="p-2 hover:bg-gray-800 rounded-full">⏮️</button>
+                    <button id="playPauseBtn" onclick="togglePlayPause()" class="p-3 bg-primary hover:bg-primary/80 rounded-full">
+                        ▶️
+                    </button>
+                    <button onclick="nextTrack()" class="p-2 hover:bg-gray-800 rounded-full">⏭️</button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span id="currentTime" class="text-sm">0:00</span>
+                    <input type="range" id="progressBar" class="w-32" min="0" max="100" value="0">
+                    <span id="duration" class="text-sm">0:00</span>
+                </div>
+            </div>
+            <audio id="audioPlayer" preload="metadata"></audio>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center">Complete Catalog</h2>
+            <div id="albumGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Albums will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lyrics & Analysis Panel -->
+    <div id="lyricsPanel" class="fixed right-0 top-0 h-full w-96 bg-gray-900 border-l border-gray-800 transform translate-x-full transition-transform z-50">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Lyrics & Analysis</h3>
+                <button onclick="closeLyricsPanel()" class="p-2 hover:bg-gray-800 rounded-full">✕</button>
+            </div>
+            <div id="lyricsContent" class="space-y-6 overflow-y-auto h-full pb-32">
+                <p class="text-gray-400">Select a track to view lyrics and prophetic analysis</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center h-full p-4">
+            <div class="bg-gray-900 rounded-lg w-full max-w-4xl h-[80vh] border border-gray-800">
+                <div class="flex items-center justify-between p-6 border-b border-gray-800">
+                    <h3 class="text-xl font-bold">AI Oracle - Ask About the Music</h3>
+                    <button onclick="closeChat()" class="p-2 hover:bg-gray-800 rounded-full">✕</button>
+                </div>
+                <iframe 
+                    src="https://lyrical-miracles-chat.omniversalmail.workers.dev" 
+                    class="w-full h-full rounded-b-lg"
+                    frameborder="0">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let tracks = [];
+        
+        // Audio player
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        
+        // Sample catalog data - replace with your actual R2 data
+        const catalog = [
+            {
+                album: "Full Disclosure",
+                year: "2020",
+                cover: "https://via.placeholder.com/300x300/8b5cf6/ffffff?text=Full+Disclosure",
+                tracks: [
+                    {
+                        title: "Swordfish",
+                        file: "swordfish.mp3",
+                        lyrics: "Hacking the matrix, blowing the whistle\\nFull disclosure, solving the riddle...",
+                        analysis: "Prophetic track about exposing truth through technology. Written 5 years before the Sentinel Framework proved artistic prophecy can become operational reality."
+                    }
+                ]
+            }
+        ];
+
+        // Initialize
+        function init() {
+            loadCatalog();
+            setupAudioPlayer();
+        }
+
+        function loadCatalog() {
+            const albumGrid = document.getElementById('albumGrid');
+            albumGrid.innerHTML = catalog.map(album => `
+                <div class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors cursor-pointer" onclick="selectAlbum('${album.album}')">
+                    <img src="${album.cover}" alt="${album.album}" class="w-full aspect-square rounded-lg mb-4">
+                    <h3 class="font-bold text-lg mb-2">${album.album}</h3>
+                    <p class="text-gray-400">${album.year} • ${album.tracks.length} tracks</p>
+                </div>
+            `).join('');
+        }
+
+        function selectAlbum(albumName) {
+            const album = catalog.find(a => a.album === albumName);
+            if (album) {
+                tracks = album.tracks;
+                currentTrackIndex = 0;
+                loadTrack(0);
+                document.getElementById('player').style.display = 'block';
+            }
+        }
+
+        function loadTrack(index) {
+            if (tracks[index]) {
+                const track = tracks[index];
+                document.getElementById('currentTrack').textContent = track.title;
+                document.getElementById('currentAlbumArt').src = catalog[0].cover;
+                // audioPlayer.src = track.file; // Uncomment when you have actual audio files
+                showLyrics(track);
+            }
+        }
+
+        function showLyrics(track) {
+            const lyricsContent = document.getElementById('lyricsContent');
+            lyricsContent.innerHTML = `
+                <div>
+                    <h4 class="font-bold text-lg mb-4">${track.title}</h4>
+                    <div class="bg-gray-800 p-4 rounded-lg mb-6">
+                        <h5 class="font-semibold mb-2">Lyrics</h5>
+                        <p class="whitespace-pre-line text-gray-300">${track.lyrics}</p>
+                    </div>
+                    <div class="bg-purple-900/30 p-4 rounded-lg">
+                        <h5 class="font-semibold mb-2 text-purple-300">🔮 Prophetic Analysis</h5>
+                        <p class="text-gray-300">${track.analysis}</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('lyricsPanel').classList.remove('translate-x-full');
+        }
+
+        function closeLyricsPanel() {
+            document.getElementById('lyricsPanel').classList.add('translate-x-full');
+        }
+
+        function togglePlayPause() {
+            if (isPlaying) {
+                audioPlayer.pause();
+                playPauseBtn.textContent = '▶️';
+            } else {
+                audioPlayer.play();
+                playPauseBtn.textContent = '⏸️';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function startListening() {
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openChat() {
+            document.getElementById('chatModal').classList.remove('hidden');
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').classList.add('hidden');
+        }
+
+        function setupAudioPlayer() {
+            audioPlayer.addEventListener('timeupdate', () => {
+                if (audioPlayer.duration) {
+                    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                    progressBar.value = progress;
+                    document.getElementById('currentTime').textContent = formatTime(audioPlayer.currentTime);
+                    document.getElementById('duration').textContent = formatTime(audioPlayer.duration);
+                }
+            });
+
+            progressBar.addEventListener('input', () => {
+                const time = (progressBar.value / 100) * audioPlayer.duration;
+                audioPlayer.currentTime = time;
+            });
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
