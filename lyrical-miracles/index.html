@@ -146,22 +146,29 @@
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progressBar = document.getElementById('progressBar');
         
-        // Sample catalog data - replace with your actual R2 data
-        const catalog = [
-            {
-                album: "Full Disclosure",
-                year: "2020",
-                cover: "https://via.placeholder.com/300x300/8b5cf6/ffffff?text=Full+Disclosure",
-                tracks: [
-                    {
-                        title: "Swordfish",
-                        file: "swordfish.mp3",
-                        lyrics: "Hacking the matrix, blowing the whistle\\nFull disclosure, solving the riddle...",
-                        analysis: "Prophetic track about exposing truth through technology. Written 5 years before the Sentinel Framework proved artistic prophecy can become operational reality."
-                    }
-                ]
-            }
-        ];
+        // Load catalog from JSON file or use sample data
+        let catalog = [];
+        try {
+            const response = await fetch('./catalog.json');
+            catalog = await response.json();
+        } catch (error) {
+            console.log('Using sample catalog data');
+            catalog = [
+                {
+                    album: "Full Disclosure",
+                    year: "2020",
+                    cover: "https://via.placeholder.com/300x300/8b5cf6/ffffff?text=Full+Disclosure",
+                    tracks: [
+                        {
+                            title: "Swordfish",
+                            file: "swordfish.mp3",
+                            lyrics: "Hacking the matrix, blowing the whistle\\nFull disclosure, solving the riddle...",
+                            analysis: "Prophetic track about exposing truth through technology. Written 5 years before the Sentinel Framework proved artistic prophecy can become operational reality."
+                        }
+                    ]
+                }
+            ];
+        }
 
         // Initialize
         function init() {

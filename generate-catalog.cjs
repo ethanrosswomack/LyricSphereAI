@@ -5,7 +5,7 @@ const crypto = require('crypto');
 // Your R2 credentials
 const R2_CONFIG = {
     accountId: '74b94b7ffc15701b77e53f81bea03813',
-    bucketName: 'omniversal-s3',
+    bucketName: 'clean-omniversal',
     accessKeyId: '64bd1df0ebad515e5f3c3496026a5808',
     secretAccessKey: '2a07d41c2522702d5b2d2fecdcb44f16a4ef44578adba3a6f03efbfca78edcef'
 };
@@ -21,7 +21,7 @@ function createSignature(secretKey, dateStamp, region, service, stringToSign) {
 async function listR2Objects() {
     return new Promise((resolve, reject) => {
         const host = `${R2_CONFIG.accountId}.r2.cloudflarestorage.com`;
-        const path = `/${R2_CONFIG.bucketName}/?list-type=2&prefix=src/data/HAWK-ARS-00/`;
+        const path = `/${R2_CONFIG.bucketName}/?list-type=2&prefix=__r2_data_catalog/`;
         
         const now = new Date();
         const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, '');
@@ -95,34 +95,41 @@ async function generateCatalog() {
         
         console.log(`📝 Found ${keys.length} markdown files`);
         
-        // Group by album
+        // Group by album using clean catalog structure
         const albums = {};
         keys.forEach(key => {
+            // Expected: __r2_data_catalog/SKU/metadata.json or similar
             const parts = key.split('/');
-            if (parts.length >= 6) {
-                const project = parts[3].replace(/^\d+_/, '').replace(/_/g, ' ');
-                const album = parts[4].replace(/^\d+_/, '').replace(/_/g, ' ');
-                const fileName = parts[5];
-                const trackTitle = fileName.replace(/\.md$/, '').replace(/^\d+_/, '').replace(/_/g, ' ');
+            if (parts.length >= 3) {
+                const sku = parts[1]; // SKU folder name
+                const fileName = parts[parts.length - 1];
                 
-                const albumKey = `${project}_${album}`;
-                if (!albums[albumKey]) {
-                    albums[albumKey] = {
-                        album: album,
-                        project: project,
+                // Parse SKU for album info (you can customize this)
+                const albumName = sku.replace(/_/g, ' ').replace(/^\d+\s*/, '');
+                
+                if (!albums[sku]) {
+                    albums[sku] = {
+                        album: albumName,
+                        project: "Hawk Eye",
                         year: "2020",
-                        cover: `https://${R2_CONFIG.accountId}.r2.cloudflarestorage.com/${R2_CONFIG.bucketName}/covers/${album.toLowerCase().replace(/\s+/g, '-')}.jpg`,
-                        tracks: []
+                        cover: `https://${R2_CONFIG.accountId}.r2.cloudflarestorage.com/${R2_CONFIG.bucketName}/album_art/${sku}/cover.jpg`,
+                        tracks: [],
+                        sku: sku
                     };
                 }
                 
-                albums[albumKey].tracks.push({
-                    title: trackTitle,
-                    file: `https://${R2_CONFIG.accountId}.r2.cloudflarestorage.com/${R2_CONFIG.bucketName}/audio/${fileName.replace('.md', '.mp3')}`,
-                    lyrics: "Lyrics will be loaded from R2",
-                    analysis: "Prophetic analysis from your existing data",
-                    r2Key: key
-                });
+                // Add track info (customize based on your file structure)
+                if (fileName.includes('metadata') || fileName.includes('track')) {
+                    const trackTitle = fileName.replace(/\.(json|md)$/, '').replace(/_/g, ' ');
+                    albums[sku].tracks.push({
+                        title: trackTitle,
+                        file: `https://${R2_CONFIG.accountId}.r2.cloudflarestorage.com/${R2_CONFIG.bucketName}/audio/${sku}/${trackTitle.toLowerCase().replace(/\s+/g, '_')}.mp3`,
+                        lyrics: "Lyrics will be loaded from R2",
+                        analysis: "Prophetic analysis from your existing data",
+                        r2Key: key,
+                        sku: sku
+                    });
+                }
             }
         });
         

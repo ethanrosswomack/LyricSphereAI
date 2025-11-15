@@ -3,7 +3,7 @@ import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 // Cloudflare R2 configuration
 const R2_ACCOUNT_ID = '74b94b7ffc15701b77e53f81bea03813';
 const R2_BUCKET_NAME = 'omniversal-s3';
-const R2_ENDPOINT = `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`;
+const R2_ENDPOINT = `https://74b94b7ffc15701b77e53f81bea03813.r2.cloudflarestorage.com`;
 const R2_PUBLIC_URL = 'https://pub-c5a0232bd1bb4662939e8ae45342ba65.r2.dev';
 
 // Track metadata interface

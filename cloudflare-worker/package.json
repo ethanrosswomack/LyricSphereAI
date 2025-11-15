@@ -9,7 +9,6 @@
     "seed": "wrangler d1 execute --local false --file ./scripts/seed.ts"
   },
   "devDependencies": {
-    "wrangler": "^3.80.0"
-  },
-  "dependencies": {}
+    "wrangler": "^4.47.0"
+  }
 }

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="adabe98c-9846-470e-ab0f-d8deb5005584" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/astro-components/ChatInterface.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ChatInterface.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/astro-components/ChatWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ChatWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/astro-components/chat.astro" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/chat.astro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/astro-components/tailwind-config-example.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tailwind-config-example.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/scripts/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/seed.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/src/html.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/html.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/src/rag.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/rag.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/src/worker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/worker.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloudflare-worker/wrangler.toml" beforeDir="false" afterPath="$PROJECT_DIR$/src/wrangler.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ethanrosswomack&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ethanrosswomack/LyricSphereAI.git&quot;,
+    &quot;accountId&quot;: &quot;311e69fa-b484-47ad-a00c-405a7189523a&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="34lHnAMpLTSmA4sztOcOWQXRQo6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.discover-all-albums.ts.executor": "Run",
+    "Node.js.discover-and-seed-all.ts.executor": "Run",
+    "Node.js.load-catalog.js.executor": "Run",
+    "Node.js.r2-crawler.ts.executor": "Run",
+    "Node.js.r2-discover-builtin.ts.executor": "Run",
+    "Node.js.r2-fetch.ts.executor": "Run",
+    "Node.js.r2-list-all.ts.executor": "Run",
+    "Node.js.run-discovery.js.executor": "Run",
+    "Node.js.schema.ts.executor": "Run",
+    "Node.js.seed-lyrics.ts.executor": "Run",
+    "Node.js.seed-real-lyrics.ts.executor": "Run",
+    "Node.js.seed.ts.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\erwomack\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\erwomack\IdeaProjects\LyricSphereAI" />
+      <recent name="C:\Users\erwomack\IdeaProjects\LyricSphereAI\astro-components" />
+      <recent name="C:\Users\erwomack\IdeaProjects\LyricSphereAI\src\components" />
+      <recent name="C:\Users\erwomack\IdeaProjects\LyricSphereAI\src\components\chat" />
+      <recent name="C:\Users\erwomack\IdeaProjects\LyricSphereAI\src\pages" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.schema.ts">
+    <configuration name="r2-list-all.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/scripts/r2-list-all.ts" typescript-loader="bundled" working-dir="$PROJECT_DIR$/scripts">
+      <method v="2" />
+    </configuration>
+    <configuration name="schema.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/shared/schema.ts" typescript-loader="bundled" working-dir="$PROJECT_DIR$/shared">
+      <method v="2" />
+    </configuration>
+    <configuration name="seed-lyrics.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/scripts/seed-lyrics.ts" typescript-loader="bundled" working-dir="$PROJECT_DIR$/scripts">
+      <method v="2" />
+    </configuration>
+    <configuration name="seed-real-lyrics.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/scripts/seed-real-lyrics.ts" typescript-loader="bundled" working-dir="$PROJECT_DIR$/scripts">
+      <method v="2" />
+    </configuration>
+    <configuration name="db:push" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="db:push" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.db:push" />
+        <item itemvalue="Node.js.schema.ts" />
+        <item itemvalue="Node.js.seed-real-lyrics.ts" />
+        <item itemvalue="Node.js.seed-lyrics.ts" />
+        <item itemvalue="Node.js.r2-list-all.ts" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="adabe98c-9846-470e-ab0f-d8deb5005584" name="Changes" comment="" />
+      <created>1761781402770</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1761781402770</updated>
+      <workItem from="1761781403964" duration="3363000" />
+      <workItem from="1763190647811" duration="5585000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

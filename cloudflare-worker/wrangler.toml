@@ -1,6 +1,7 @@
 name = "cf-autorag-hawkeye"
 main = "src/worker.ts"
 compatibility_date = "2024-10-01"
+account_id = "74b94b7ffc15701b77e53f81bea03813"
 
 # Bindings — configure these in Cloudflare dashboard or here before deploy
 
@@ -11,21 +12,21 @@ binding = "AI" # exposes env.AI
 # 2) Vectorize index binding (create in dashboard → AI → Vectorize)
 [[vectorize]]
 binding = "VECTORIZE"
-index_name = "lyrics-index"
+index_name = "autorag-lyrical-miracles"
 
 # 3) R2 bucket where lyrics/articles live (texts, md, etc.)
 [[r2_buckets]]
 binding = "R2_MEDIA"
-bucket_name = "omniversal-s3" # change to your bucket name
+bucket_name = "clean-omniversal"
 
 # 4) KV for lightweight session memory (optional)
 [[kv_namespaces]]
 binding = "SESSIONS"
-id = "YOUR_KV_NAMESPACE_ID" # Replace with actual ID from Cloudflare dashboard
+id = "c50129ca16b144acadf025638ab6a9f6"
 
 # 5) CORS allowed origin for your CF Pages/Domain
 [vars]
 ALLOWED_ORIGIN = "*"
 MODEL = "@cf/meta/llama-3-8b-instruct" # text model
-EMBED_MODEL = "@cf/baai/bge-base-en-v1.5" # embeddings
+EMBED_MODEL = "@cf/baai/bge-large-en-v1.5" # embeddings
 MAX_CONTEXT_DOCS = "6"
