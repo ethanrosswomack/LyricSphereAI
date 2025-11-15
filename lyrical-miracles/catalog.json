@@ -1,0 +1,16 @@
+[
+  {
+    "album": "Full Disclosure",
+    "project": "Hawk Eye",
+    "year": "2020",
+    "cover": "https://via.placeholder.com/300x300/8b5cf6/ffffff?text=Full+Disclosure",
+    "tracks": [
+      {
+        "title": "Swordfish",
+        "file": "https://74b94b7ffc15701b77e53f81bea03813.r2.cloudflarestorage.com/omniversal-s3/audio/swordfish.mp3",
+        "lyrics": "Hacking the matrix, blowing the whistle\\nFull disclosure, solving the riddle...",
+        "analysis": "Prophetic track about exposing truth through technology."
+      }
+    ]
+  }
+]
