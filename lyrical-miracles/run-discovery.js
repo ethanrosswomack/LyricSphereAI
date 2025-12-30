@@ -8,8 +8,8 @@ const path = require('path');
 const R2_CONFIG = {
     accountId: '74b94b7ffc15701b77e53f81bea03813',
     bucketName: 'omniversal-s3',
-    accessKeyId: process.env.R2_ACCESS_KEY_ID || '64bd1df0ebad515e5f3c3496026a5808',
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '2a07d41c2522702d5b2d2fecdcb44f16a4ef44578adba3a6f03efbfca78edcef'
+    accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || ''
 };
 
 async function generateCatalog() {
